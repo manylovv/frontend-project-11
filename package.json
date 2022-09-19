@@ -4,8 +4,8 @@
   "description": "[![Actions Status](https://github.com/manylovv/frontend-project-11/workflows/hexlet-check/badge.svg)](https://github.com/manylovv/frontend-project-11/actions)",
   "main": "index.js",
   "scripts": {
-    "start": "webpack --mode production",
-    "dev": "webpack serve"
+    "build": "webpack --mode production",
+    "dev-server": "webpack serve"
   },
   "repository": {
     "type": "git",
