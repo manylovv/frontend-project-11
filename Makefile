@@ -1,8 +1,8 @@
 build:
 	npm run build
 
-dev-server:
-	npm run dev-server
+dev:
+	npm run dev
 
 install-deps:
 	npm ci

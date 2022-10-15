@@ -1,9 +1,47 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>project</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>rss-project</title>
   </head>
-  <body></body>
+  <body class="d-flex flex-column miv-vh-100">
+    <main class="flex-grow-1">
+      <section class="container-fluid">
+        <div class="row">
+          <form class="rss-form text-body mt-5">
+            <div class="row">
+              <p>http://lorem-rss.herokuapp.com/feed</p>
+              <div class="col">
+                <div class="form-floating">
+                  <input
+                    id="rss-url-input"
+                    name="url"
+                    class="form-control w-100"
+                    placeholder="ссылка RSS"
+                  />
+                  <label for="rss-url-input">Ссылка RSS</label>
+                </div>
+              </div>
+              <div class="col-auto">
+                <button
+                  type="submit"
+                  aria-label="add"
+                  class="h-100 btn btn-lg btn-primary px-sm-5"
+                >
+                  Добавить
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </section>
+      <section class="container-fluid">
+        <div class="row">
+          <div class="col-md-10 feeds"></div>
+          <div class="col-md-10 posts"></div>
+        </div>
+      </section>
+    </main>
+  </body>
 </html>
