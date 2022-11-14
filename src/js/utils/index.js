@@ -1,4 +1,10 @@
-const parseRss = (xmlData) => {
+// @ts-nocheck
+import axios from 'axios';
+import { PROXY_URL } from '../constants';
+
+export const fetchRSS = (rssUrl) => axios.get(PROXY_URL + rssUrl);
+
+export const parseRSS = (xmlData) => {
   try {
     const parser = new DOMParser();
     const doc = parser.parseFromString(xmlData, 'application/xml');
@@ -16,5 +22,3 @@ const parseRss = (xmlData) => {
     throw new Error('errors.invalidRss');
   }
 };
-
-export default parseRss;

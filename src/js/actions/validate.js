@@ -1,4 +1,4 @@
-import * as yup from 'yup'
+import * as yup from 'yup';
 
 const validate = (rssUrl, rssUrls) => {
   yup.setLocale({
@@ -8,10 +8,10 @@ const validate = (rssUrl, rssUrls) => {
     string: {
       url: 'errors.url',
     },
-  })
+  });
 
-  const schema = yup.string().url().notOneOf(rssUrls)
-  return schema.validate(rssUrl)
-}
+  const schema = yup.string().url().notOneOf(rssUrls);
+  return schema.validate(rssUrl);
+};
 
-export default validate
+export default validate;

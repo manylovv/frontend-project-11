@@ -35,7 +35,7 @@ const renderErrors = (i18n, errors, { rssInput }) => {
 
 const renderFeeds = (i18n, feeds, { feedsContainer }) => {
   const card = document.createElement('div');
-  card.classList.add('card');
+  card.classList.add('card', 'border-0');
 
   const cardBody = document.createElement('div');
   cardBody.classList.add('card-body');
@@ -45,7 +45,7 @@ const renderFeeds = (i18n, feeds, { feedsContainer }) => {
   cardTitle.textContent = i18n.t('feeds');
 
   const listGroup = document.createElement('ul');
-  listGroup.classList.add('list-group');
+  listGroup.classList.add('list-group', 'list-group-flush');
 
   feeds.forEach((feed) => {
     const listItem = document.createElement('li');
@@ -69,7 +69,7 @@ const renderFeeds = (i18n, feeds, { feedsContainer }) => {
 
 const renderPosts = (i18n, posts, { postsContainer }) => {
   const card = document.createElement('div');
-  card.classList.add('card');
+  card.classList.add('card', 'border-0');
 
   const cardBody = document.createElement('div');
   cardBody.classList.add('card-body');
@@ -79,14 +79,14 @@ const renderPosts = (i18n, posts, { postsContainer }) => {
   cardTitle.textContent = i18n.t('posts');
 
   const listGroup = document.createElement('ul');
-  listGroup.classList.add('list-group');
+  listGroup.classList.add('list-group', 'list-group-flush');
 
   posts.forEach((post) => {
     const listItem = document.createElement('li');
     listItem.classList.add('list-group-item');
 
     const postLink = document.createElement('a');
-    postLink.classList.add('font-weight-bold');
+    postLink.classList.add('fw-bold', 'link-dark');
     postLink.setAttribute('href', post.link);
     postLink.setAttribute('target', '_blank');
     postLink.setAttribute('rel', 'noopener noreferrer');
