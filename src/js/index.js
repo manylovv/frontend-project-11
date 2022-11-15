@@ -2,9 +2,9 @@ import i18next from 'i18next';
 import app from './app';
 import resources from './locales/index';
 
-(() => {
+(async () => {
   const i18nextInstance = i18next.createInstance();
-  i18nextInstance.init({
+  await i18nextInstance.init({
     lng: 'ru',
     debug: true,
     resources,

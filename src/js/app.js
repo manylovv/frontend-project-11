@@ -2,7 +2,7 @@ import '../scss/styles.scss';
 import onChange from 'on-change';
 import render from './render';
 import updatePosts from './actions/updatePosts';
-import { handleSubmit } from './eventHandlers';
+import { handleSubmit } from './eventsHandlers';
 
 const elements = {
   form: document.querySelector('.rss-form'),
@@ -22,17 +22,29 @@ const app = (i18n) => {
   };
 
   const state = onChange(initialState, () => render(state, elements, i18n));
-
   updatePosts(state);
 
   elements.form.addEventListener('submit', (e) => {
-    handleSubmit(e, state).then((data) => {
-      const { feed, post, url, errors } = data;
-      state.feeds.push(feed);
-      state.posts.push(post);
-      state.urls.push(url);
-      state.errors.form = errors.form;
-    });
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const rssUrl = formData.get('url');
+
+    handleSubmit(rssUrl, state)
+      .then(({ feed, posts, url, errors }) => {
+        console.log({ feed, posts, url, errors });
+        state.feeds.push(feed);
+        state.posts.push(...posts);
+        state.urls.push(url);
+        state.errors.form = errors.form;
+      })
+      .catch((e) => {
+        console.error(e);
+        if (e.isAxiosError) {
+          state.errors.form = 'errors.network';
+        } else {
+          state.errors.form = e.message;
+        }
+      });
   });
 };
 

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import _ from 'lodash';
-import { parseRSS } from '../utils';
+import parseRSS from './parseRSS';
 import { PROXY_URL } from '../constants';
 
 const updatePosts = (state) => {
