@@ -1,4 +1,5 @@
-const parseRss = (xmlData) => {
+// @ts-nocheck
+const parseRSS = (xmlData) => {
   try {
     const parser = new DOMParser();
     const doc = parser.parseFromString(xmlData, 'application/xml');
@@ -17,4 +18,4 @@ const parseRss = (xmlData) => {
   }
 };
 
-export default parseRss;
+export default parseRSS;

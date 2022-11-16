@@ -1,7 +1,7 @@
 const reset = ({ form, rssInput, feedsContainer, postsContainer }) => {
   form.reset();
   rssInput.focus();
-  const prevInvalidFeedback = document.querySelector('.invalid-feedback');
+  const prevInvalidFeedback = document.querySelector('.feedback.text-danger');
   if (prevInvalidFeedback) {
     prevInvalidFeedback.remove();
   }
@@ -22,20 +22,27 @@ const reset = ({ form, rssInput, feedsContainer, postsContainer }) => {
 const renderErrors = (i18n, errors, { rssInput }) => {
   if (errors.form) {
     rssInput.classList.add('is-invalid');
+    const exampleLink = document.querySelector('.example-link');
 
     // create error message element
     const invalidFeedback = document.createElement('div');
-    invalidFeedback.classList.add('invalid-feedback');
     invalidFeedback.textContent = i18n.t(errors.form);
+    invalidFeedback.classList.add(
+      'feedback',
+      'm-0',
+      'small',
+      'text-danger',
+      'position-absolute'
+    );
 
     // add error message after input
-    rssInput.after(invalidFeedback);
+    exampleLink?.after(invalidFeedback);
   }
 };
 
 const renderFeeds = (i18n, feeds, { feedsContainer }) => {
   const card = document.createElement('div');
-  card.classList.add('card');
+  card.classList.add('card', 'border-0');
 
   const cardBody = document.createElement('div');
   cardBody.classList.add('card-body');
@@ -45,7 +52,7 @@ const renderFeeds = (i18n, feeds, { feedsContainer }) => {
   cardTitle.textContent = i18n.t('feeds');
 
   const listGroup = document.createElement('ul');
-  listGroup.classList.add('list-group');
+  listGroup.classList.add('list-group', 'list-group-flush');
 
   feeds.forEach((feed) => {
     const listItem = document.createElement('li');
@@ -69,7 +76,7 @@ const renderFeeds = (i18n, feeds, { feedsContainer }) => {
 
 const renderPosts = (i18n, posts, { postsContainer }) => {
   const card = document.createElement('div');
-  card.classList.add('card');
+  card.classList.add('card', 'border-0');
 
   const cardBody = document.createElement('div');
   cardBody.classList.add('card-body');
@@ -79,20 +86,38 @@ const renderPosts = (i18n, posts, { postsContainer }) => {
   cardTitle.textContent = i18n.t('posts');
 
   const listGroup = document.createElement('ul');
-  listGroup.classList.add('list-group');
+  listGroup.classList.add('list-group', 'border-0', 'rounded-0');
 
   posts.forEach((post) => {
     const listItem = document.createElement('li');
-    listItem.classList.add('list-group-item');
+    listItem.classList.add(
+      'list-group-item',
+      'd-flex',
+      'justify-content-between',
+      'align-items-start',
+      'border-0',
+      'border-end-0'
+    );
 
     const postLink = document.createElement('a');
-    postLink.classList.add('font-weight-bold');
+    postLink.classList.add('fw-bold');
     postLink.setAttribute('href', post.link);
     postLink.setAttribute('target', '_blank');
     postLink.setAttribute('rel', 'noopener noreferrer');
     postLink.textContent = post.title;
 
-    listItem.append(postLink);
+    // create button for modal window
+    const button = document.createElement('button');
+    button.classList.add('btn', 'btn-outline-primary', 'btn-sm');
+    button.setAttribute('type', 'button');
+    button.setAttribute('data-bs-toggle', 'modal');
+    button.setAttribute('data-bs-target', '#modal');
+    button.setAttribute('data-id', post.id);
+    button.textContent = i18n.t('preview');
+
+    // data-bs-toggle="modal" data-bs-target="#exampleModal">
+
+    listItem.append(postLink, button);
     listGroup.append(listItem);
   });
 
@@ -105,7 +130,11 @@ export default (state, elements, i18n) => {
   const { errors, feeds, posts } = state;
   reset(elements);
 
-  renderErrors(i18n, errors, elements);
+  if (errors.form) {
+    renderErrors(i18n, errors, elements);
+    return;
+  }
+
   renderFeeds(i18n, feeds, elements);
   renderPosts(i18n, posts, elements);
 };
