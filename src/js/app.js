@@ -1,4 +1,5 @@
 import '../scss/styles.scss';
+import * as bootstrap from 'bootstrap';
 import onChange from 'on-change';
 import render from './render';
 import updatePosts from './actions/updatePosts';
