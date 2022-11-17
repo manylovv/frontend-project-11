@@ -4,13 +4,7 @@ import onChange from 'on-change';
 import render from './render';
 import updatePosts from './actions/updatePosts';
 import { handleSubmit } from './eventsHandlers';
-
-const elements = {
-  form: document.querySelector('.rss-form'),
-  rssInput: document.getElementById('url-input'),
-  feedsContainer: document.querySelector('.feeds'),
-  postsContainer: document.querySelector('.posts'),
-};
+import { ELEMENTS } from './constants';
 
 const app = (i18n) => {
   const initialState = {
@@ -25,9 +19,9 @@ const app = (i18n) => {
     },
   };
 
-  const state = onChange(initialState, () => render(state, elements, i18n));
+  const state = onChange(initialState, () => render(state, ELEMENTS, i18n));
 
-  elements.form.addEventListener('submit', (e) => {
+  ELEMENTS.form.addEventListener('submit', (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const rssUrl = formData.get('url');
