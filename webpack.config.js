@@ -1,7 +1,7 @@
 /* eslint-disable global-require */
 /* eslint-disable no-undef */
-const path = require('path')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: './src/js/index.js',
@@ -41,4 +41,4 @@ module.exports = {
       },
     ],
   },
-}
+};
