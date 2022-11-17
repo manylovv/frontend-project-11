@@ -20,10 +20,12 @@ const app = (i18n) => {
     errors: {
       form: '',
     },
+    ui: {
+      viewedPostsIds: [],
+    },
   };
 
   const state = onChange(initialState, () => render(state, elements, i18n));
-  updatePosts(state);
 
   elements.form.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -33,10 +35,13 @@ const app = (i18n) => {
     handleSubmit(rssUrl, state)
       .then(({ feed, posts, url, errors }) => {
         console.log({ feed, posts, url, errors });
+
         state.feeds.push(feed);
         state.posts.push(...posts);
         state.urls.push(url);
         state.errors.form = errors.form;
+
+        updatePosts(state);
       })
       .catch((e) => {
         console.error(e);

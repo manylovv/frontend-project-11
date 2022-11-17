@@ -2,6 +2,7 @@ const reset = ({ form, rssInput, feedsContainer, postsContainer }) => {
   form.reset();
   rssInput.focus();
   const prevInvalidFeedback = document.querySelector('.feedback.text-danger');
+
   if (prevInvalidFeedback) {
     prevInvalidFeedback.remove();
   }
@@ -19,14 +20,14 @@ const reset = ({ form, rssInput, feedsContainer, postsContainer }) => {
   }
 };
 
-const renderErrors = (i18n, errors, { rssInput }) => {
-  if (errors.form) {
+const renderErrors = (i18n, state, { rssInput }) => {
+  if (state.errors.form) {
     rssInput.classList.add('is-invalid');
     const exampleLink = document.querySelector('.example-link');
 
     // create error message element
     const invalidFeedback = document.createElement('div');
-    invalidFeedback.textContent = i18n.t(errors.form);
+    invalidFeedback.textContent = i18n.t(state.form);
     invalidFeedback.classList.add(
       'feedback',
       'm-0',
@@ -40,7 +41,7 @@ const renderErrors = (i18n, errors, { rssInput }) => {
   }
 };
 
-const renderFeeds = (i18n, feeds, { feedsContainer }) => {
+const renderFeeds = (i18n, state, { feedsContainer }) => {
   const card = document.createElement('div');
   card.classList.add('card', 'border-0');
 
@@ -54,7 +55,7 @@ const renderFeeds = (i18n, feeds, { feedsContainer }) => {
   const listGroup = document.createElement('ul');
   listGroup.classList.add('list-group', 'list-group-flush');
 
-  feeds.forEach((feed) => {
+  state.feeds.forEach((feed) => {
     const listItem = document.createElement('li');
     listItem.classList.add('list-group-item');
 
@@ -74,7 +75,7 @@ const renderFeeds = (i18n, feeds, { feedsContainer }) => {
   feedsContainer.append(card);
 };
 
-const renderPosts = (i18n, posts, { postsContainer }) => {
+const renderPosts = (i18n, state, { postsContainer }) => {
   const card = document.createElement('div');
   card.classList.add('card', 'border-0');
 
@@ -88,7 +89,7 @@ const renderPosts = (i18n, posts, { postsContainer }) => {
   const listGroup = document.createElement('ul');
   listGroup.classList.add('list-group', 'border-0', 'rounded-0');
 
-  posts.forEach((post) => {
+  state.posts.forEach((post) => {
     const listItem = document.createElement('li');
     listItem.classList.add(
       'list-group-item',
@@ -100,11 +101,19 @@ const renderPosts = (i18n, posts, { postsContainer }) => {
     );
 
     const postLink = document.createElement('a');
-    postLink.classList.add('fw-bold');
+    const linkClass = state.ui.viewedPostsIds.includes(post.id)
+      ? 'fw-normal'
+      : 'fw-bold';
+
+    postLink.classList.add(linkClass, 'me-4');
     postLink.setAttribute('href', post.link);
     postLink.setAttribute('target', '_blank');
     postLink.setAttribute('rel', 'noopener noreferrer');
     postLink.textContent = post.title;
+    // add event listener to post link to mark post as viewed
+    postLink.addEventListener('click', () => {
+      state.ui.viewedPostsIds.push(post.id);
+    });
 
     // create button for modal window
     const button = document.createElement('button');
@@ -115,7 +124,9 @@ const renderPosts = (i18n, posts, { postsContainer }) => {
     button.setAttribute('data-id', post.id);
     button.textContent = i18n.t('preview');
 
-    // data-bs-toggle="modal" data-bs-target="#exampleModal">
+    button.addEventListener('click', () => {
+      state.ui.viewedPostsIds.push(post.id);
+    });
 
     listItem.append(postLink, button);
     listGroup.append(listItem);
@@ -127,14 +138,13 @@ const renderPosts = (i18n, posts, { postsContainer }) => {
 };
 
 export default (state, elements, i18n) => {
-  const { errors, feeds, posts } = state;
   reset(elements);
 
-  if (errors.form) {
-    renderErrors(i18n, errors, elements);
+  if (state.errors.form) {
+    renderErrors(i18n, state, elements);
     return;
   }
 
-  renderFeeds(i18n, feeds, elements);
-  renderPosts(i18n, posts, elements);
+  renderFeeds(i18n, state, elements);
+  renderPosts(i18n, state, elements);
 };
