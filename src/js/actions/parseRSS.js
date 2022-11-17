@@ -9,6 +9,7 @@ const parseRSS = (xmlData) => {
     const posts = [...postsNodes].map((post) => ({
       title: post.querySelector('title').textContent,
       link: post.querySelector('link').textContent,
+      description: post.querySelector('description').textContent,
     }));
 
     return { title, description, posts };

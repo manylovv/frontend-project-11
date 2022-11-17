@@ -1,10 +1,15 @@
-const reset = ({ form, rssInput, feedsContainer, postsContainer }) => {
+const reset = ({
+  form,
+  rssInput,
+  feedsContainer,
+  postsContainer,
+  invalidFeedback,
+}) => {
   form.reset();
   rssInput.focus();
-  const prevInvalidFeedback = document.querySelector('.feedback.text-danger');
 
-  if (prevInvalidFeedback) {
-    prevInvalidFeedback.remove();
+  if (invalidFeedback) {
+    invalidFeedback.remove();
   }
 
   if (rssInput.classList.contains('is-invalid')) {
@@ -20,14 +25,13 @@ const reset = ({ form, rssInput, feedsContainer, postsContainer }) => {
   }
 };
 
-const renderErrors = (i18n, state, { rssInput }) => {
+const renderErrors = (i18n, state, { rssInput, exampleLink }) => {
   if (state.errors.form) {
     rssInput.classList.add('is-invalid');
-    const exampleLink = document.querySelector('.example-link');
 
     // create error message element
     const invalidFeedback = document.createElement('div');
-    invalidFeedback.textContent = i18n.t(state.form);
+    invalidFeedback.textContent = i18n.t(state.errors.form);
     invalidFeedback.classList.add(
       'feedback',
       'm-0',
@@ -75,7 +79,7 @@ const renderFeeds = (i18n, state, { feedsContainer }) => {
   feedsContainer.append(card);
 };
 
-const renderPosts = (i18n, state, { postsContainer }) => {
+const renderPosts = (i18n, state, { postsContainer, modal }) => {
   const card = document.createElement('div');
   card.classList.add('card', 'border-0');
 
@@ -100,12 +104,10 @@ const renderPosts = (i18n, state, { postsContainer }) => {
       'border-end-0'
     );
 
-    const postLink = document.createElement('a');
-    const linkClass = state.ui.viewedPostsIds.includes(post.id)
-      ? 'fw-normal'
-      : 'fw-bold';
+    const isViewed = state.ui.viewedPostsIds.includes(post.id);
 
-    postLink.classList.add(linkClass, 'me-4');
+    const postLink = document.createElement('a');
+    postLink.classList.add(isViewed ? 'fw-normal' : 'fw-bold', 'me-4');
     postLink.setAttribute('href', post.link);
     postLink.setAttribute('target', '_blank');
     postLink.setAttribute('rel', 'noopener noreferrer');
@@ -126,6 +128,10 @@ const renderPosts = (i18n, state, { postsContainer }) => {
 
     button.addEventListener('click', () => {
       state.ui.viewedPostsIds.push(post.id);
+
+      modal.title.textContent = post.title;
+      modal.body.textContent = post.description;
+      modal.postLink.href = post.link;
     });
 
     listItem.append(postLink, button);
