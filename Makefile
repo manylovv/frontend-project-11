@@ -4,7 +4,7 @@ build:
 dev:
 	npm run dev
 
-install-deps:
+install:
 	npm ci
 
 lint:
