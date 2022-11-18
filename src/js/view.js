@@ -93,7 +93,7 @@ const renderPosts = (i18n, state, { postsContainer, modal }) => {
       'justify-content-between',
       'align-items-start',
       'border-0',
-      'border-end-0',
+      'border-end-0'
     );
 
     const isViewed = state.ui.viewedPostsIds.includes(post.id);
@@ -136,8 +136,6 @@ const renderPosts = (i18n, state, { postsContainer, modal }) => {
   postsContainer.append(card);
 };
 
-const renderFeedback = (i18n, state, { feedback }) => {};
-
 export default (state, elements, i18n) => {
   reset(elements);
 
@@ -146,7 +144,6 @@ export default (state, elements, i18n) => {
     return;
   }
 
-  renderFeedback(i18n, state, elements);
   renderFeeds(i18n, state, elements);
   renderPosts(i18n, state, elements);
 };
