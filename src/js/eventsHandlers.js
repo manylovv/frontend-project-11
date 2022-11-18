@@ -2,11 +2,11 @@ import axios from 'axios';
 import parseRSS from './utils/parseRSS';
 import validate from './utils/validate';
 
-const proxyUrl = 'https://allorigins.hexlet.app/raw?disableCache=true&url=';
+// const proxyUrl = 'https://allorigins.hexlet.app/get?disableCache=true&url=';
 
 export const handleSubmit = (rssUrl, state) => {
   return validate(rssUrl, state.urls)
-    .then(() => axios.get(proxyUrl + rssUrl))
+    .then(() => axios.get(rssUrl))
     .then((response) => {
       const { title, description, posts } = parseRSS(response.data);
       const feedId = crypto.randomUUID();
