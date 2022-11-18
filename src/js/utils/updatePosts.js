@@ -1,13 +1,12 @@
 import axios from 'axios';
 import _ from 'lodash';
 import parseRSS from './parseRSS';
-
-// const proxyUrl = 'https://allorigins.hexlet.app/get?disableCache=true&url=';
+import getUrl from '../utils/proxy';
 
 const updatePosts = (state) => {
   const promises = state.feeds.map((feed) => {
     return axios
-      .get(feed.url)
+      .get(getUrl(feed.url))
       .then((response) => {
         const { posts } = parseRSS(response.data);
         const newPosts = _.differenceBy(posts, state.posts, 'link');
