@@ -1,6 +1,6 @@
-import parseRSS from './actions/parseRSS';
-import fetchRSS from './actions/fetchRSS';
-import validate from './actions/validate';
+import parseRSS from './utils/parseRSS';
+import fetchRSS from './utils/fetchRSS';
+import validate from './utils/validate';
 
 export const handleSubmit = (rssUrl, state) => {
   return validate(rssUrl, state.urls)

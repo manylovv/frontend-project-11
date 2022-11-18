@@ -1,6 +1,6 @@
 import onChange from 'on-change';
 import render from './render';
-import updatePosts from './actions/updatePosts';
+import updatePosts from './utils/updatePosts';
 import { handleSubmit } from './eventsHandlers';
 import { ELEMENTS } from './constants';
 
