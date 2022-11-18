@@ -99,7 +99,8 @@ const renderPosts = (i18n, state, { postsContainer, modal }) => {
     const isViewed = state.ui.viewedPostsIds.includes(post.id);
 
     const postLink = document.createElement('a');
-    postLink.classList.add(isViewed ? 'fw-normal' : 'fw-bold', 'me-4');
+    // TODO: add 'me-4' for better text alignment
+    postLink.classList.add(isViewed ? 'fw-normal' : 'fw-bold');
     postLink.setAttribute('href', post.link);
     postLink.setAttribute('target', '_blank');
     postLink.setAttribute('rel', 'noopener noreferrer');
