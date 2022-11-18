@@ -1,7 +1,7 @@
 import onChange from 'on-change';
 import render from './view';
 import updatePosts from './utils/updatePosts';
-import { handleSubmit } from './eventsHandlers';
+import handleSubmit from './eventsHandlers';
 
 const elements = {
   form: document.querySelector('.rss-form'),
@@ -38,8 +38,15 @@ const app = (i18n) => {
     const rssUrl = formData.get('url');
 
     handleSubmit(rssUrl, state)
-      .then(({ feed, posts, url, errors }) => {
-        console.log({ feed, posts, url, errors });
+      .then(({
+        feed, posts, url, errors,
+      }) => {
+        console.log({
+          feed,
+          posts,
+          url,
+          errors,
+        });
 
         state.feeds.push(feed);
         state.posts.push(...posts);
@@ -48,12 +55,12 @@ const app = (i18n) => {
 
         updatePosts(state);
       })
-      .catch((e) => {
-        console.error(e);
-        if (e.isAxiosError) {
+      .catch((error) => {
+        console.error(error);
+        if (error.isAxiosError) {
           state.errors.form = 'errors.network';
         } else {
-          state.errors.form = e.message;
+          state.errors.form = error.message;
         }
       });
   });
