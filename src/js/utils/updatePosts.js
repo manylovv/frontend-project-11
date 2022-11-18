@@ -2,8 +2,7 @@ import axios from 'axios';
 import _ from 'lodash';
 import parseRSS from './parseRSS';
 
-const proxyUrl =
-  'https://hexlet-allorigins.herokuapp.com/raw?disableCache=true&url=';
+const proxyUrl = 'https://allorigins.hexlet.app/raw?disableCache=true&url=';
 
 const updatePosts = (state) => {
   const promises = state.feeds.map((feed) => {
