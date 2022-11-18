@@ -93,7 +93,7 @@ const renderPosts = (i18n, state, { postsContainer, modal }) => {
       'justify-content-between',
       'align-items-start',
       'border-0',
-      'border-end-0'
+      'border-end-0',
     );
 
     const isViewed = state.ui.viewedPostsIds.includes(post.id);
