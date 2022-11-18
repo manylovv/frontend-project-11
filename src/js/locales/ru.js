@@ -6,6 +6,7 @@ export default {
       network: 'Произошла сетевая ошибка при загрузке rss, попробуйте еще раз',
       invalidRss: 'Ресурс не содержит валидный rss',
     },
+    feedback: 'RSS успешно загружен',
     feeds: 'Фиды',
     posts: 'Посты',
     preview: 'Просмотр',

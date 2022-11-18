@@ -3,13 +3,14 @@ const reset = ({
   rssInput,
   feedsContainer,
   postsContainer,
-  invalidFeedback,
+  feedback,
 }) => {
   form.reset();
   rssInput.focus();
 
-  if (invalidFeedback) {
-    invalidFeedback.remove();
+  if (feedback) {
+    feedback.textContent = '';
+    feedback.classList.remove('text-danger', 'text-success');
   }
 
   if (rssInput.classList.contains('is-invalid')) {
@@ -25,27 +26,18 @@ const reset = ({
   }
 };
 
-const renderErrors = (i18n, state, { rssInput, exampleLink }) => {
+const renderErrors = (i18n, state, { rssInput, feedback }) => {
   if (state.errors.form) {
     rssInput.classList.add('is-invalid');
-
-    // create error message element
-    const invalidFeedback = document.createElement('div');
-    invalidFeedback.textContent = i18n.t(state.errors.form);
-    invalidFeedback.classList.add(
-      'feedback',
-      'm-0',
-      'small',
-      'text-danger',
-      'position-absolute'
-    );
-
-    // add error message after input
-    exampleLink?.after(invalidFeedback);
+    feedback.textContent = i18n.t(state.errors.form);
+    feedback.classList.add('text-danger');
   }
 };
 
-const renderFeeds = (i18n, state, { feedsContainer }) => {
+const renderFeeds = (i18n, state, { feedsContainer, feedback }) => {
+  feedback.textContent = i18n.t('feedback');
+  feedback.classList.add('text-success');
+
   const card = document.createElement('div');
   card.classList.add('card', 'border-0');
 
@@ -143,6 +135,8 @@ const renderPosts = (i18n, state, { postsContainer, modal }) => {
   postsContainer.append(card);
 };
 
+const renderFeedback = (i18n, state, { feedback }) => {};
+
 export default (state, elements, i18n) => {
   reset(elements);
 
@@ -151,6 +145,7 @@ export default (state, elements, i18n) => {
     return;
   }
 
+  renderFeedback(i18n, state, elements);
   renderFeeds(i18n, state, elements);
   renderPosts(i18n, state, elements);
 };

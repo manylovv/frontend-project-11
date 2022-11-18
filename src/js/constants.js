@@ -11,6 +11,6 @@ export const ELEMENTS = {
     body: document.querySelector('.modal-body'),
     postLink: document.querySelector('.full-article'),
   },
-  invalidFeedback: document.querySelector('.feedback.text-danger'),
+  feedback: document.querySelector('.feedback'),
   exampleLink: document.querySelector('.example-link'),
 };
