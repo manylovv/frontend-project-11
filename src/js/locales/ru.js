@@ -5,7 +5,7 @@ export default {
       unique: 'RSS уже существует',
       network: 'Ошибка сети',
       invalidRss: 'Ресурс не содержит валидный RSS',
-      empty: 'Не должно быть пустым',
+      required: 'Не должно быть пустым',
     },
     feedback: 'RSS успешно загружен',
     feeds: 'Фиды',
