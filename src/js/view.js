@@ -51,9 +51,15 @@ const renderFeeds = (i18n, state, { feedsContainer, feedback }) => {
   const listGroup = document.createElement('ul');
   listGroup.classList.add('list-group', 'list-group-flush');
 
-  state.feeds.forEach((feed) => {
+  state.feeds.forEach((feed, i) => {
     const listItem = document.createElement('li');
-    listItem.classList.add('list-group-item');
+
+    const isFirstFeed = i === 0;
+    if (isFirstFeed) {
+      listItem.classList.add('list-group-item');
+    } else {
+      listItem.classList.add('list-group-item', 'pt-4');
+    }
 
     const feedTitle = document.createElement('h6');
     feedTitle.classList.add('h6');
