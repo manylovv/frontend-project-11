@@ -42,14 +42,11 @@ const app = (i18n) => {
         feed, posts, url, errors,
       }) => {
         console.log({
-          feed,
-          posts,
-          url,
-          errors,
+          feed, posts, url, errors,
         });
 
         state.feeds.push(feed);
-        state.posts.push(...posts);
+        state.posts.unshift(...posts);
         state.urls.push(url);
         state.errors.form = errors.form;
 
