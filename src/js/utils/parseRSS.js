@@ -1,4 +1,3 @@
-// @ts-nocheck
 const parseRSS = (xmlData) => {
   try {
     console.log(xmlData);
