@@ -5,4 +5,6 @@
 
 ## Website:
 [RSS-Reader](https://rss-reader-zeta.vercel.app)
-  
+
+# RSS-reader
+An RSS reader service is a tool that allows users to subscribe to and keep track of updates from their favorite websites. Instead of visiting each website individually to check for new content, users can view all updates in a single, convenient location using an RSS reader. This makes it easy to stay up-to-date with the latest news and information from a variety of sources without having to constantly switch between different websites.
